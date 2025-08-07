@@ -8,7 +8,7 @@ http://www.mulesoft.org/schema/mule/mongo http://www.mulesoft.org/schema/mule/mo
     <apikit:config name="super-biodata-sapi-config" api="super-biodata-sapi.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
     <api-gateway:autodiscovery apiId="20451446" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="bee9b6bd-0739-4016-860b-bf72f3f80ae3" flowRef="super-biodata-sapi-main" />
 	<mongo:config name="MongoDB_Config" doc:name="MongoDB Config" doc:id="26f5f42d-a8df-4db0-8743-246368d475e0" >
-		<mongo:connection-string-connection connectionString="mongodb+srv://sairam:sairamMovies@supermovies.mqofz9w.mongodb.net/mongo_project?retryWrites=true&amp;w=majority&amp;appName=supermovies"/>
+		<mongo:connection-string-connection connectionString="mongodb+srv://<db_username>:<db_password>@<cluster_name>.mqofz9w.mongodb.net/<database_name>?retryWrites=true&w=majority&appName=<cluster_name>"/>
 	</mongo:config>
 	<flow name="super-biodata-sapi-main">
         <http:listener config-ref="super-biodata-sapi-httpListenerConfig" path="/api/*">
