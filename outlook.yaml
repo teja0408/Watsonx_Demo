@@ -1,0 +1,86 @@
+openapi: 3.0.0
+info:
+  title: Microsoft Graph - Get Inbox Messages
+  version: 1.0.0
+  description: Retrieve messages from the signed-in user's Inbox folder using Microsoft Graph API.
+
+servers:
+  - url: https://graph.microsoft.com/v1.0
+
+paths:
+  /me/mailFolders/inbox/messages:
+    get:
+      summary: Get Inbox Messages
+      operationId: getInboxMessages
+      tags:
+        - Mail
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: query
+          name: $top
+          schema:
+            type: integer
+          description: Number of items to return
+        - in: query
+          name: $skip
+          schema:
+            type: integer
+          description: Number of items to skip
+        - in: query
+          name: $select
+          schema:
+            type: string
+          description: Select properties to be returned
+        - in: query
+          name: $filter
+          schema:
+            type: string
+          description: Filter items by property values
+      responses:
+        '200':
+          description: A list of messages from the Inbox
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        subject:
+                          type: string
+                        bodyPreview:
+                          type: string
+                        from:
+                          type: object
+                          properties:
+                            emailAddress:
+                              type: object
+                              properties:
+                                name:
+                                  type: string
+                                address:
+                                  type: string
+                        receivedDateTime:
+                          type: string
+                          format: date-time
+                        isRead:
+                          type: boolean
+        '401':
+          description: Unauthorized - Invalid or missing token
+        '403':
+          description: Forbidden - Insufficient permissions
+        '500':
+          description: Internal server error
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
